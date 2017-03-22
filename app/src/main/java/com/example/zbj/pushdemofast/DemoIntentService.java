@@ -5,20 +5,12 @@ package com.example.zbj.pushdemofast;
  */
 
 import android.content.Context;
-import android.os.Message;
 import android.util.Log;
 
 import com.igexin.sdk.GTIntentService;
-import com.igexin.sdk.PushConsts;
-import com.igexin.sdk.PushManager;
-import com.igexin.sdk.message.FeedbackCmdMessage;
 import com.igexin.sdk.message.GTCmdMessage;
 import com.igexin.sdk.message.GTTransmitMessage;
-import com.igexin.sdk.message.SetTagCmdMessage;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * 继承 GTIntentService 接收来自个推的消息, 所有消息在线程中回调, 如果注册了该服务, 则务必要在 AndroidManifest中声明, 否则无法接受消息<br>
@@ -28,15 +20,11 @@ import java.util.Map;
  * onReceiveCommandResult 各种事件处理回执 <br>
  */
 public class DemoIntentService extends GTIntentService {
-private MainActivity  mainActivity;
+    private static MainActivity Activity;
 
 
     public DemoIntentService() {
 
-    }
-
-    public DemoIntentService(MainActivity mainActivity) {
-        this.mainActivity = mainActivity;
     }
 
     @Override
@@ -45,15 +33,13 @@ private MainActivity  mainActivity;
 
     @Override
     public void onReceiveMessageData(Context context, GTTransmitMessage msg) {
-        Log.i("tag","============ 收到透传消息 ============");
-        Log.i("tag","------msgId: " + msg.getMessageId());
-        Log.i("tag","------cid: " + msg.getClientId());
-        Log.i("tag","------tid: " + msg.getTaskId());
-        Log.i("tag","------pid: " + msg.getPayloadId());
-        mainActivity.showToast(msg.getPayload().toString());
+        Log.i("tag", "============ 收到透传消息 ============");
+        Log.i("tag", "------msgId: " + msg.getMessageId());
+        Log.i("tag", "------cid: " + msg.getClientId());
+        Log.i("tag", "------tid: " + msg.getTaskId());
+        Log.i("tag", "------pid: " + msg.getPayloadId());
         String ss = new String(msg.getPayload());
-        Log.i("tag","------new:: " + ss);
-
+        Activity.showToast(ss);
     }
 
 
@@ -68,5 +54,9 @@ private MainActivity  mainActivity;
 
     @Override
     public void onReceiveCommandResult(Context context, GTCmdMessage cmdMessage) {
+    }
+
+    public static void setRefer(MainActivity mainActivity) {
+        Activity = mainActivity;
     }
 }

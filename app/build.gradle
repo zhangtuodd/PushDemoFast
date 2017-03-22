@@ -28,6 +28,10 @@ android {
     }
 }
 
+repositories {
+    maven { url 'http://mvn.gt.igexin.com/nexus/content/repositories/releases/' }
+}
+
 dependencies {
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
